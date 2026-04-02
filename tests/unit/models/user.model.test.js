@@ -10,6 +10,7 @@ describe('User model', () => {
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
+        age: 25,
       };
     });
 
@@ -39,6 +40,11 @@ describe('User model', () => {
 
     test('should throw a validation error if role is unknown', async () => {
       newUser.role = 'invalid';
+      await expect(new User(newUser).validate()).rejects.toThrow();
+    });
+
+    test('should throw a validation error if age is missing', async () => {
+      delete newUser.age;
       await expect(new User(newUser).validate()).rejects.toThrow();
     });
   });
