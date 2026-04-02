@@ -19,6 +19,7 @@ describe('User routes', () => {
         email: faker.internet.email().toLowerCase(),
         password: 'password1',
         role: 'user',
+        age: 25,
       };
     });
 
@@ -38,12 +39,13 @@ describe('User routes', () => {
         email: newUser.email,
         role: newUser.role,
         isEmailVerified: false,
+        age: newUser.age,
       });
 
       const dbUser = await User.findById(res.body.id);
       expect(dbUser).toBeDefined();
       expect(dbUser.password).not.toBe(newUser.password);
-      expect(dbUser).toMatchObject({ name: newUser.name, email: newUser.email, role: newUser.role, isEmailVerified: false });
+      expect(dbUser).toMatchObject({ name: newUser.name, email: newUser.email, role: newUser.role, isEmailVerified: false, age: newUser.age });
     });
 
     test('should be able to create an admin as well', async () => {
@@ -164,6 +166,7 @@ describe('User routes', () => {
         email: userOne.email,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,
+        age: userOne.age,
       });
     });
 
